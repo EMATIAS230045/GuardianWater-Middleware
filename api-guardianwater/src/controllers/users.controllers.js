@@ -1,10 +1,17 @@
 import userDAO from "../daos/users.dao.js";
+import bcrypt from "bcryptjs";
 
 class UserController {
 
     async createUser(req, res) {
         try {
-            const user = await userDAO.create(req.body);
+            const {name, lastname, email, password, role, address} = req.body;
+            if(!name || !lastname || !email || !password || !role || !address){return res.status(400).json("Faltan campos")};
+            const userData = {
+            ...req.body,
+            password:"contraseña hash" 
+            }
+            const user = await userDAO.create();
             res.status(201).json(user);
         } catch (error) {
             res.status(400).json({ error: error.message });
