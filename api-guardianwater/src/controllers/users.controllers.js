@@ -47,6 +47,20 @@ class UserController {
             res.status(500).json({ error: error.message });
         }
     }
+    async login(req, res) { 
+        try{
+            const { email, contraseña } = req.params;
+            const User = await userDAO.findByEmail(email)
+         if (!User) return res.status(404).json({ error: "Usuario no encontrado" });
+         if (contraseña !== User.password) return res.status(401).json({ error: "Credenciales inválidas." });
+         res.json({
+            email:email,
+            contraseña:contraseña});
+        }
+        catch (error) {
+                 res.status(500).json({ error: error.message });
+        }
+    }
 
 }
 
