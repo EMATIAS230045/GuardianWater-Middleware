@@ -1,0 +1,31 @@
+<div class="my-8 pt-1 rounded-2xl shadow-2xl flex items-center flex-wrap justify-center" [ngClass]="admin ? 'bg-indigo-500' : 'bg-sky-500'">
+	<div class="w-full pb-1 rounded-2xl" [ngClass]="admin ? 'bg-indigo-600' : 'bg-blue-700'">
+		<div class="flex px-4 py-1 rounded-2xl bg-linear-to-b border-b-2 h-20 items-center" [ngClass]="admin ? 'from-indigo-600 to-indigo-700 border-indigo-500' : 'from-sky-600 to-blue-500 border-sky-500'">
+			<div *ngIf="admin" class="mr-4 w-26 h-26 bg-[url('./assets/icons/corona_admin.png')] bg-cover bg-center drop-shadow-[0_6px_4px_rgba(0,0,0,0.5)]"></div>
+			<div *ngIf="!admin" class="w-20 h-20 bg-[url('./assets/icons/guardianwater.png')] bg-cover bg-center drop-shadow-[0_6px_4px_rgba(0,0,0,0.5)] mr-4"></div>
+			<div class="flex items-center text-white h-12 mr-12 cursor-default text-shadow-[1px_1px_1px_black]" [ngClass]="admin ? 'text-sm' : 'text-lg'">Guardian Water</div>
+			<div class="flex items-center text-white text-md h-12 cursor-pointer hover:text-gray-300 text-shadow-[1px_1px_1px_black]" [ngClass]="admin ? 'text-sm mx-2' : 'text-md mx-4 px-4'" (click)="go_inicio()">Inicio</div>
+			<div class="flex items-center text-white h-12 px-4 cursor-pointer hover:text-gray-300 text-shadow-[1px_1px_1px_black]" [ngClass]="admin ? 'text-sm mx-2' : 'text-md mx-4'" (click)="go_historial()">{{ admin ? 'Mi historial' : 'Historial'}}</div>
+			<div *ngIf="admin" class="flex items-center text-white h-12 cursor-pointer hover:text-gray-300 text-shadow-[1px_1px_1px_black]" [ngClass]="admin ? 'text-sm mx-2' : 'text-md mx-4'" (click)="go_historiales_admin()">Otros historiales</div>
+			<div class="flex items-center text-white h-12 cursor-pointer hover:text-gray-300 border-2 rounded-xl text-shadow-[1px_1px_1px_black]" [ngClass]="admin ? 'text-sm px-4 mx-4' : 'text-md px-8 mx-8'" (click)="go_reporte()">Nuevo reporte</div>
+			<div *ngIf="admin" class="flex relative group justify-center items-center bg-gray-800 hover:bg-gray-700 w-14 h-14 rounded-2xl mx-2 cursor-pointer" (click)="go_perfiles_admin()">
+				<div class="w-10 h-10 bg-[url('./assets/icons/icon_perfiles.png')] bg-cover bg-center drop-shadow-[0_6px_4px_rgba(0,0,0,0.5)]"></div>
+				<span class="absolute -top-8 left-1/2 -translate-x-1/2
+                 px-2 py-1 text-sm text-white bg-black/80 rounded
+                 opacity-0 group-hover:opacity-100 transition
+                 pointer-events-none whitespace-nowrap">
+					Administrar usuarios
+				</span>
+			</div>
+			<div class="flex group relative justify-center items-center bg-gray-800 hover:bg-gray-700 w-14 h-14 rounded-2xl mx-2 cursor-pointer" (click)="go_perfil()">
+				<div class="w-10 h-10 bg-[url('./assets/icons/icon_perfil.png')] bg-cover bg-center drop-shadow-[0_6px_4px_rgba(0,0,0,0.5)]"></div>
+				<span class="absolute -top-8 left-1/2 -translate-x-1/2
+                 px-2 py-1 text-sm text-white bg-black/80 rounded
+                 opacity-0 group-hover:opacity-100 transition
+                 pointer-events-none whitespace-nowrap">
+					Mi perfil
+				</span>
+			</div>
+		</div>
+	</div>
+</div>

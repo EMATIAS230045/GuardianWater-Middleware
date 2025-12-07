@@ -1,0 +1,24 @@
+<div class="min-h-screen w-full overflow-hidden font-clash">
+	<!-- Fondo inicio -->
+	<div class="absolute inset-0 -z-20 bg-[url('./assets/images/pattern.png')] bg-repeat bg-size-[960px_480px] after:content-[''] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_center,transparent_60%,rgba(0,0,0,0.8)_100%)] after:pointer-events-none" [class.hidden]="admin"></div>
+	<!-- Fondo inicio (admin) -->
+	<div class="absolute inset-0 -z-10 bg-[#6321A7] bg-center bg-no-repeat bg-contain transition-opacity duration-500 bg-[url('./assets/images/background_main_admin.png')]" [class.hidden]="!admin"></div>
+    
+    <app-navbar 
+        (nav_inicio)="showInicio()"
+        (nav_historial)="showHistorial()"
+        (nav_historial_admin)="showHistorialAdmin()"
+        (nav_reporte)="showReporte()"
+        (nav_perfil)="showPerfil()"
+        (nav_perfiles_admin)="showPerfilesAdmin()"
+        [class.hidden]="!navbar"
+        [admin]="admin"
+    ></app-navbar>
+    <app-inicio [class.hidden]="!C_Inicio" [admin]="admin"></app-inicio>
+    <app-historial [class.hidden]="!C_Historial" [admin]="admin"></app-historial>
+    <app-historial-admin [class.hidden]="!C_Historial_Admin" [admin]="admin"></app-historial-admin>
+    <app-crear-reporte [class.hidden]="!C_Reporte" (go_back)="showInicio()" [admin]="admin"></app-crear-reporte>
+    <app-perfil [class.hidden]="!C_Perfil" (go_back)="showInicio()" [admin]="admin"></app-perfil>
+    <app-perfiles-admin [class.hidden]="!C_Perfiles_Admin" (go_back)="showInicio()" [admin]="admin"></app-perfiles-admin>
+    <app-footer class="mt-10" [class.hidden]="!C_Footer" (cerrar)="cerrarSesion()" [admin]="admin"></app-footer>
+</div>

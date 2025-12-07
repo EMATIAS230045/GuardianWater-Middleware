@@ -1,0 +1,39 @@
+<div class="relative w-full flex justify-center items-center mt-20">
+    <div class="relative w-[90%] h-20 bg-linear-to-b from-[#1d7ef5] to-[#0049b7] rounded-[40px] border-y-[6px] border-[#ffd52f] shadow-[0_4px_10px_rgba(0,0,0,0.4)] overflow-hidden">
+        <div class="absolute left-0 top-0 w-[30px] h-full bg-[#ffd52f] rounded-l-[40px]"></div>
+        <div class="absolute right-0 top-0 w-[30px] h-full bg-[#ffd52f] rounded-r-[40px]"></div>
+        <div class="absolute inset-0 bg-linear-to-b from-[#1d7ef5] to-[#0049b7] rounded-[35px] mx-1.5 overflow-hidden"></div>
+    </div>
+    <div class="w-24 h-20 bg-[url('./assets/icons/corona.png')] bg-cover bg-center absolute -top-8 drop-shadow-[0_6px_4px_rgba(0,0,0,0.5)]"></div>
+</div>
+<div class="bg-linear-to-b from-[#1d7ef5] to-[#0049b7] rounded-2xl w-md p-1">
+    <!-- Login -->
+    <div class="text-center flex flex-col items-center bg-[url('./assets/images/pattern.png')] bg-repeat-y bg-contain bg-center overflow-hidden py-4 rounded-2xl bg-blue-400/80 bg-blend-multiply" [class.hidden]="!login">
+        <h1 class="text-2xl text-white font-clash my-8">Iniciar sesión</h1>
+        <input id="login_email" type="text" class="bg-white p-2 rounded-xl border-2 border-gray-700 mb-4 placeholder:text-gray-400" placeholder="Correo electronico">
+        <input id="login_pass" type="password" class="bg-white p-2 rounded-xl border-2 border-gray-700 placeholder:text-gray-400" placeholder="Contraseña">
+        <button class="bg-blue-800 hover:bg-blue-700 mt-10 rounded-lg border-2 border-gray-900" (click)="push_login()">
+            <div class="bg-blue-400 hover:bg-blue-300 rounded-lg w-full pt-1">
+                <div class="bg-blue-500 px-12 py-1 rounded-lg w-full mb-1 text-white hover:bg-blue-400 hover:cursor-pointer">Ingresar</div>
+            </div>
+        </button>
+        <div class="my-8 text-sm text-white">
+            <p>¿No tienes una cuenta? <b class="font-normal text-blue-200 cursor-pointer" (click)="registrarse()">Registrate</b></p>
+        </div>
+    </div>
+    <!-- Registro -->
+    <div class="text-center flex flex-col items-center bg-[url('./assets/images/pattern.png')] bg-repeat-y bg-contain bg-center overflow-hidden py-4 rounded-2xl bg-blue-400/80 bg-blend-multiply" [class.hidden]="login">
+        <h1 class="text-2xl text-white font-clash my-8">Registrarse</h1>
+        <input id="register_email" type="text" class="bg-white p-2 rounded-xl border-2 border-gray-700 mb-4 placeholder:text-gray-400" placeholder="Correo electronico">
+        <input id="register_pass" type="password" class="bg-white p-2 rounded-xl border-2 border-gray-700 placeholder:text-gray-400 mb-4" placeholder="Contraseña">
+        <input id="register_verify_pass" type="password" class="bg-white p-2 rounded-xl border-2 border-gray-700 placeholder:text-gray-400" placeholder="Confirmar contraseña">
+        <button class="bg-blue-800 hover:bg-blue-700 mt-10 rounded-lg border-2 border-gray-900" (click)="push_registro()">
+            <div class="bg-blue-400 hover:bg-blue-300 rounded-lg w-full pt-1">
+                <div class="bg-blue-500 px-12 py-1 rounded-lg w-full mb-1 text-white hover:bg-blue-400 hover:cursor-pointer">Registrarse</div>
+            </div>
+        </button>
+        <div class="my-8 text-sm text-white">
+            <p>¿Ya tienes una cuenta? <b class="font-normal text-blue-200 cursor-pointer" (click)="registrarse()">Iniciar sesión</b></p>
+        </div>
+    </div>
+</div>
