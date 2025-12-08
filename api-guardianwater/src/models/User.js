@@ -1,14 +1,11 @@
 import { Schema, model } from "mongoose";
-import mongooseSequence from 'mongoose-sequence';
-
-const AutoIncrement = mongooseSequence(Schema);
-
 const userSchema = new Schema({
 
     id_user: { 
-        unique: true,
-        type: Number
-    }, 
+        type: Number,
+        required: true,
+        unique: true
+    },
 
     name: {
         type: String, 
@@ -44,7 +41,6 @@ const userSchema = new Schema({
         default: 'User'
     },
 
-    // Dirección física completa
     address: {
         street: { type: String, trim: true },
         city: { type: String, trim: true },
@@ -53,9 +49,6 @@ const userSchema = new Schema({
         postalCode: { type: String }
     },
 
-
 });
-
-userSchema.plugin(AutoIncrement, { inc_field: 'id_user' });
 
 export default model("User", userSchema);

@@ -3,7 +3,15 @@ import User from "../models/User.js";
 class UserDAO {
 
     async create(userData) {
-        return await User.create(userData);
+    const lastUser = await User.findOne().sort({ id_user: -1 });
+    const newId = lastUser ? lastUser.id_user + 1 : 1;
+
+        const user = new User({
+        ...userData,
+        id_user: newId
+    });
+
+    return await user.save();
     }
 
     async findAll() {

@@ -1,24 +1,26 @@
 import userDAO from "../daos/users.dao.js";
 import bcrypt from "bcryptjs";
+const saltRounds = 10;
 
 class UserController {
 
-    async createUser(req, res) {
-        try {
-            const {name, lastname, email, password, role, address} = req.body;
+    createUser = async (req, res) => {
+        const {name, lastname, email, password, role, address} = req.body;
             if(!name || !lastname || !email || !password || !role || !address){return res.status(400).json("Faltan campos")};
+        try {
+            const hashedPassword = await bcrypt.hash(password, saltRounds);
             const userData = {
             ...req.body,
-            password:"contraseña hash" 
+            password: hashedPassword 
             }
-            const user = await userDAO.create();
-            res.status(201).json(user);
+            const user = await userDAO.create(userData);
+            res.status(201).json("Usuario creado correctamente");
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
     }
 
-    async getUsers(req, res) {
+     getUsers = async (req, res) => {
         try {
             const users = await userDAO.findAll();
             res.json(users);
@@ -27,7 +29,7 @@ class UserController {
         }
     }
 
-    async getUser(req, res) {
+    getUser = async (req, res) => {
         try {
             const user = await userDAO.findById(req.params.id_user);
             if (!user) return res.status(404).json({ error: "User not found" });
@@ -37,7 +39,7 @@ class UserController {
         }
     }
 
-    async updateUser(req, res) {
+    updateUser = async (req, res) => {
         try {
             const user = await userDAO.update(req.params.id_user, req.body);
             res.json(user);
@@ -46,7 +48,7 @@ class UserController {
         }
     }
 
-    async deleteUser(req, res) {
+    deleteUser = async (req, res) => {
         try {
             await userDAO.delete(req.params.id_user);
             res.json({ message: "User deleted" });
@@ -54,20 +56,34 @@ class UserController {
             res.status(500).json({ error: error.message });
         }
     }
-    async login(req, res) { 
-        try{
-            const { email, contraseña } = req.params;
-            const User = await userDAO.findByEmail(email)
-         if (!User) return res.status(404).json({ error: "Usuario no encontrado" });
-         if (contraseña !== User.password) return res.status(401).json({ error: "Credenciales inválidas." });
-         res.json({
-            email:email,
-            contraseña:contraseña});
+    login = async (req, res) => { 
+    try {
+        const { email, password } = req.body;
+
+        // 1. Buscar usuario por email
+        const user = await userDAO.findByEmail(email);
+        if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
+
+        // 2. Comparar contraseñas cifradas
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(401).json({ error: "Credenciales inválidas." });
         }
-        catch (error) {
-                 res.status(500).json({ error: error.message });
-        }
+
+        // 3. Login exitoso
+        res.json({
+            message: "Login exitoso",
+            user: {
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+        });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
+}
 
 }
 
