@@ -14,7 +14,7 @@ class UserController {
             password: hashedPassword 
             }
             const user = await userDAO.create(userData);
-            res.status(201).json("Usuario creado correctamente");
+            res.status(201).json("Usuario creado correctamente, ya puede iniciar sesión");
         } catch (error) {
             res.status(400).json({ error: error.message });
         }
@@ -60,17 +60,15 @@ class UserController {
     try {
         const { email, password } = req.body;
 
-        // 1. Buscar usuario por email
         const user = await userDAO.findByEmail(email);
         if (!user) return res.status(404).json({ error: "Usuario no encontrado" });
 
-        // 2. Comparar contraseñas cifradas
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
             return res.status(401).json({ error: "Credenciales inválidas." });
         }
 
-        // 3. Login exitoso
+        
         res.json({
             message: "Login exitoso",
             user: {
